@@ -1,0 +1,21 @@
+ERROR_CODES = {
+    'ERR 101': 'Server State Not Found For Client Id: {0}',
+    'ERR 102': 'Client Not Found Client Id: {0}',
+    'ERR 103': 'Config Not Initialized',
+    'ERR 104': 'Play Not Found For Client Id: {0}, Turn No: {1}',
+    'ERR 105': 'Infrastructure upgrade is already in progress {0}. Change operation failed.',
+    'ERR 106': 'All available infrastructure upgrades consumed.  Change operation failed.',
+    'ERR 107': 'Research Upgrade has already been applied {0}.  change operation failed.',
+    'ERR 108': 'All available infrastructure upgrades consumed.  Change operation failed.',
+    'ERR 109': 'Research Upgrade is already in progress {0}.  Change operation failed.',
+    'ERR 110': 'Incorrect Research Upgrade Request!!',
+    'ERR 111': 'TOKEN MISSING.',
+    'ERR 112': 'INVALID COMMAND.',
+    'ERR 113': 'Unknown Error Occurred.  Error Message :{0}',
+    'ERR 114': 'Client Not Active Client Id: {0}',
+    'ERR 115': 'Insufficient profit accumulated for Research upgrade.  Change operation failed.',
+    'ERR 116': 'Insufficient profit accumulated for Research.  Current research cancelled.',
+    'ERR 117': 'Synch Mode On.  Await next turn.  Current turn no: {0}',
+    'ERR 118': 'JSON Input Validation Error: {0}',
+    'ERR 119': 'Max Node count reached error on applying the change in tier region: {0}'
+}
