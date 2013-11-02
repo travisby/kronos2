@@ -41,12 +41,13 @@ class ResearchUpgradeLevel(object):
             }
         )
 
+    @staticmethod
     def json_factory(input_json):
         result = ResearchUpgradeLevel()
 
         result.name = input_json['Name']
         result.upgrade_cost = input_json['UpgradeCost']
-        result.no_of_turns_required = input_json['No.OfTurnsRequired']
+        result.no_of_turns_required = input_json['NoOfTurnsRequired']
         result.cost_per_server_benefit = input_json['CostPerServerBenefit']
         result.transaction_benefit = input_json['TransactionBenefit']
         result.fail_over_benefit = input_json['FailOverBenefit']

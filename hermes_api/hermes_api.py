@@ -1,4 +1,5 @@
 import base.request
+import base.output
 import requests
 import utils
 
@@ -28,7 +29,7 @@ class HermesApi(object):
             print result
             raise Exception(result['Error']['ErrorMessage'])
 
-        return result
+        return base.output.Output.json_factory(result)
 
     def init(self):
         return self._makeRequest(utils.INIT)

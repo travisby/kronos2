@@ -1,7 +1,7 @@
 import json
 
 
-class Capacity(object):
+class CapacityLevel(object):
     upper_limit = 0
     lower_limit = 0
     success_percentage = 0
@@ -29,11 +29,12 @@ class Capacity(object):
             }
         )
 
+    @staticmethod
     def json_factory(input_json):
-        result = Capacity()
+        result = CapacityLevel()
         result.upper_limit = input_json['UpperLimit']
         result.lower_limit = input_json['LowerLimit']
         result.success_percentage = input_json['SuccessPercentage']
-        result.is_at_overload = input_json['IsAtOverLoad']
+        result.is_at_overload = input_json['IsAtOverload']
 
         return result

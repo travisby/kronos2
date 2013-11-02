@@ -29,12 +29,13 @@ class InfrastructureUpgradeLevel(object):
             }
         )
 
+    @staticmethod
     def json_factory(input_json):
         result = InfrastructureUpgradeLevel()
 
         result.name = input_json['Name']
         result.upgrade_cost = input_json['UpgradeCost']
-        result.no_of_turns_required = input_json['No.OfTurnsRequired']
+        result.no_of_turns_required = input_json['NoOfTurnsRequired']
         result.transaction_benefit = input_json['TransactionBenefit']
 
         return result

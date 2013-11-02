@@ -17,7 +17,11 @@ class GameError(object):
             }
         )
 
+    @staticmethod
     def json_factory(input_json):
+        if not input_json:
+            return None
+
         result = GameError()
 
         result.error_no = input_json['ErrorNo']

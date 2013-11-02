@@ -65,11 +65,13 @@ class GameServerFarmState(object):
             }
         )
 
+    @staticmethod
     def json_factory(input_json):
         result = GameServerFarmState()
 
-        result.transaction_time = datetime.strptime(
-            input_json['TransactionTime']
+        result.transaction_time = datetime.datetime.strptime(
+            input_json['TransactionTime'],
+            '%Y-%m-%dT%H:%M:%S'
         )
         result.turn_no = input_json['TurnNo']
         result.cost_per_server = input_json['CostPerServer']
@@ -80,14 +82,16 @@ class GameServerFarmState(object):
         result.server_tiers = ServerTiers.json_factory(
             input_json['ServerTiers']
         )
-        result.infrastructure_upgrade_levels = (
-            InfrastructureUpgradeLevel.json_factory(
-                input_json['InfraStructureUpgradeLevels']
-            )
-        )
-        result.research_upgrade_levels = ResearchUpgradeLevel.json_factory(
-            input_json['ResearchUpgradeLevel']
-        )
+        result.infrastructure_upgrade_levels = [
+            InfrastructureUpgradeLevel.json_factory(x)
+            for x in
+            input_json['InfraStructureUpgradeLevels']
+        ]
+        result.research_upgrade_levels = [
+            ResearchUpgradeLevel.json_factory(x)
+            for x in
+            input_json['ResearchUpgradeLevels']
+        ]
 
         # TODO figure out what this translates to
         result.infrastructure_upgrade_state = (

@@ -1,7 +1,8 @@
 import json
+import region
 
 
-class FailOver(object):
+class FailOverLevel(object):
     region_to = ''
     region_from = ''
     success_percentage = 0
@@ -20,11 +21,12 @@ class FailOver(object):
             }
         )
 
+    @staticmethod
     def json_factory(input_json):
-        result = FailOver()
+        result = FailOverLevel()
 
-        result.region_to = input_json['RegionTo']
-        result.region_from = input_json['RegionFrom']
+        result.region_to = region.code_to_region(input_json['RegionTo'])
+        result.region_from = region.code_to_region(input_json['RegionFrom'])
         result.success_percentage = input_json['SuccessPercentage']
 
         return result

@@ -17,6 +17,7 @@ class NodeChangeState(object):
             }
         )
 
+    @staticmethod
     def json_factory(input_json):
         result = NodeChangeState()
 

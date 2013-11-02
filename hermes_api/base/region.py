@@ -1,5 +1,15 @@
+import json
+
+
 class Region(object):
     code = ''
+
+    def repr(self):
+        return json.dumps(
+            {
+                self.code: ''
+            }
+        )
 
 
 class NorthAmerica(Region):
@@ -14,7 +24,7 @@ class AsiaPacific(Region):
     code = 'AP'
 
 
-def get_region_by_code(code):
+def code_to_region(code):
     if code == 'NA':
         return NorthAmerica()
     elif code == 'EU':

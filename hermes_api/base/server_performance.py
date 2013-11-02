@@ -1,7 +1,6 @@
 import json
 from capacity_level import CapacityLevel
 from fail_over_level import FailOverLevel
-from db_replication_level import DBReplicationLevel
 
 
 class ServerPerformance(object):
@@ -28,6 +27,7 @@ class ServerPerformance(object):
             }
         )
 
+    @staticmethod
     def json_factory(input_json):
         result = ServerPerformance()
 
@@ -35,7 +35,8 @@ class ServerPerformance(object):
             [
                 CapacityLevel.json_factory(x)
                 for x in
-                input_json['CapacityLevels']
+                # spelling mistake is for realz
+                input_json['CapactityLevels']
             ]
         )
 
@@ -47,12 +48,15 @@ class ServerPerformance(object):
             ]
         )
 
-        result.db_replication_levels = (
-            [
-                DBReplicationLevel.json_factory(x)
-                for x in
-                input_json['DBReplicationLevels']
-            ]
-        )
+        if input_json['DBReplicationLevels']:
+            result.db_replication_levels = (
+                [
+                    FailOverLevel.json_factory(x)
+                    for x in
+                    input_json['DBReplicationLevels']
+                ]
+            )
+        else:
+            result.db_replication_levels = None
 
         return result

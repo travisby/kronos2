@@ -1,3 +1,6 @@
+# TODO get rid of this class.
+# Who's to say it will look like this at other levels?
+
 import json
 
 
@@ -19,3 +22,13 @@ class ServerRegions(object):
                 'AP': self.ap
             }
         )
+
+    @staticmethod
+    def json_factory(input_json):
+        result = ServerRegions()
+
+        result.eu = input_json['EU']
+        result.na = input_json['NA']
+        result.ap = input_json['AP']
+
+        return result

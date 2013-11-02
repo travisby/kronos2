@@ -15,3 +15,13 @@ class ServerTiers(object):
                 'DB': self.db
             }
         )
+
+    @staticmethod
+    def json_factory(input_json):
+        result = ServerTiers()
+
+        result.web = ServerTier.json_factory(input_json['WEB'])
+        result.java = ServerTier.json_factory(input_json['JAVA'])
+        result.db = ServerTier.json_factory(input_json['DB'])
+
+        return result

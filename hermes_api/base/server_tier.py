@@ -1,4 +1,6 @@
 import json
+from server_performance import ServerPerformance
+from server_regions import ServerRegions
 
 
 class ServerTier(object):
@@ -29,3 +31,18 @@ class ServerTier(object):
                 'ServerStartTurnTime': self.server_start_turn_time
             }
         )
+
+    @staticmethod
+    def json_factory(input_json):
+        result = ServerTier()
+
+        result.server_shutdown_turn_time = input_json['ServerShutdownTurnTime']
+        result.server_performance = ServerPerformance.json_factory(
+            input_json['ServerPerformance']
+        )
+        result.server_regions = ServerRegions.json_factory(
+            input_json['ServerRegions']
+        )
+        result.start_turn_time = input_json['ServerStartTurnTime']
+
+        return result

@@ -5,28 +5,29 @@ import json
 
 class Output(object):
     request_status = ''
-    error_message = None
+    error = None
     server_state = None
 
-    def __init__(self, request_status='', error_message='', server_state=''):
+    def __init__(self, request_status='', error='', server_state=''):
         self.request_status = request_status
-        self.error_message = error_message
+        self.error = error
         self.server_state = server_state
 
     def __repr__(self):
         return json.dumps(
             {
                 'RequestStatus': self.request_status,
-                'ErrorMessage': self.error_message,
+                'Error': self.error,
                 'ServerState': self.server_state
             }
         )
 
+    @staticmethod
     def json_factory(input_json):
         result = Output()
-        result.request_status = input_json['RequestStatus']
-        result.error_message = GameError.json_factory(
-            input_json['ErrorMessage']
+        result.request_status = input_json['Status']
+        result.error = GameError.json_factory(
+            input_json['Error']
         )
         result.server_state = GameServerFarmState.json_factory(
             input_json['ServerState']

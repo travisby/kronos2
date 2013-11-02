@@ -34,6 +34,7 @@ class ServerRegion(object):
             }
         )
 
+    @staticmethod
     def json_factory(input_json):
         result = ServerRegion()
 
