@@ -2,6 +2,49 @@ import json
 
 
 class ChangeRequest(object):
+    """
+    servers = {
+        'WEB': {
+            'ServerRegions': {
+                'EU': {
+                    'NodeCount': 0
+                },
+                'NA': {
+                    'NodeCount': 0
+                },
+                'AP': {
+                    'NodeCount': 0
+                }
+            }
+        },
+        'JAVA': {
+            'ServerRegions': {
+                'EU': {
+                    'NodeCount': 0
+                },
+                'NA': {
+                    'NodeCount': 0
+                },
+                'AP': {
+                    'NodeCount': 0
+                }
+            }
+        },
+        'DB': {
+            'ServerRegions': {
+                'EU': {
+                    'NodeCount': 0
+                },
+                'NA': {
+                    'NodeCount': 0
+                },
+                'AP': {
+                    'NodeCount': 0
+                }
+            }
+        }
+    }
+    """
     servers = {}
     upgrade_infastructure = False
     upgrade_to_research = ''
