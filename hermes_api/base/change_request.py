@@ -46,17 +46,17 @@ class ChangeRequest(object):
     }
     """
     servers = {}
-    upgrade_infastructure = False
+    upgrade_infrastructure = False
     upgrade_to_research = ''
 
     def __init__(
         self,
         servers={},
-        upgrade_infastructure=False,
+        upgrade_infrastructure=False,
         upgrade_to_research=''
     ):
         self.servers = servers
-        self.upgrade_infastructure = upgrade_infastructure
+        self.upgrade_infrastructure = upgrade_infrastructure
         self.upgrade_to_research = upgrade_to_research
 
     def __repr__(self):
