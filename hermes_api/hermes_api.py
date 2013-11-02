@@ -4,27 +4,33 @@ import utils
 
 
 class HermesApi(object):
+    api_token = ''
 
     def __init__(self, api_token=utils.API_TOKEN):
-        pass
+        self.api_token = api_token
 
     def _makeRequest(self, command, change_request=None):
-        request = base.request.Request
+        request = base.request.Request()
         request.command = command
         request.change_request = change_request
+        request.token = self.api_token
 
-        result = requests.post(utils.HERMES_API_URL, data=repr(request))
+        result = requests.post(
+            utils.HERMES_API_URL,
+            data=repr(request),
+            headers={'content-type': 'application/json'}
+        ).json()
 
-        if 'ErrorMessage' in result.json():
-            raise Exception(result.json()['ErrorMessage'])
+        if result['Error']:
+            raise Exception(result['Error']['ErrorMessage'])
 
         return result
 
     def init(self):
-        self._makeRequest(utils.INIT)
+        return self._makeRequest(utils.INIT)
 
     def play(self):
-        self._makeRequest(utils.PLAY)
+        return self._makeRequest(utils.PLAY)
 
     def chng(self, change_request):
-        self._makeRequest(utils.CHANGE, change_request)
+        return self._makeRequest(utils.CHANGE, change_request)
