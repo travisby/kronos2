@@ -20,14 +20,15 @@ class CapacityLevel(object):
         self.is_at_overload = is_at_overload
 
     def __repr__(self):
-        return json.dumps(
-            {
-                'UpperLimit': self.upper_limit,
-                'LowerLimit': self.lower_limit,
-                'SuccessPercentage': self.success_percentage,
-                'IsAtOverLoad': self.is_at_overload
-            }
-        )
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'UpperLimit': self.upper_limit,
+            'LowerLimit': self.lower_limit,
+            'SuccessPercentage': self.success_percentage,
+            'IsAtOverLoad': self.is_at_overload
+        }
 
     @staticmethod
     def json_factory(input_json):

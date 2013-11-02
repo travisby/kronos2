@@ -20,12 +20,19 @@ class ServerPerformance(object):
 
     def __repr__(self):
         return json.dumps(
-            {
-                'CapacityLevels': self.capacity_levels,
-                'FailOverLevels': self.fail_over_levels,
-                'DBReplicationLevels': self.db_replication_levels
-            }
+            self.to_dict()
         )
+
+    def to_dict(self):
+        return {
+            'CapacityLevels': [x.to_dict() for x in self.capacity_levels],
+            'FailOverLevels': [x.to_dict() for x in self.fail_over_levels],
+            'DBReplicationLevels': [
+                x.to_dict()
+                for x in
+                self.db_replication_levels
+            ]
+        }
 
     @staticmethod
     def json_factory(input_json):
@@ -57,6 +64,6 @@ class ServerPerformance(object):
                 ]
             )
         else:
-            result.db_replication_levels = None
+            result.db_replication_levels = []
 
         return result

@@ -4,6 +4,8 @@ from infrastructure_upgrade_level import InfrastructureUpgradeLevel
 from research_upgrade_level import ResearchUpgradeLevel
 from server_tiers import ServerTiers
 
+DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
+
 
 class GameServerFarmState(object):
     transaction_time = None
@@ -45,25 +47,31 @@ class GameServerFarmState(object):
         self.research_upgrade_state = research_upgrade_state
 
     def __repr__(self):
-        return json.dumps(
-            {
-                'TransactionTime': self.transaction_time,
-                'TurnNo': self.turn_no,
-                'CostPerServer': self.cost_per_server,
-                'ProfitConstant': self.profit_constant,
-                'ProfitAccumulated': self.profit_accumulated,
-                'ProfitEarned': self.profit_earned,
-                'ServerTiers': self.server_tiers,
-                'InfraStructureUpgradeLevels': (
-                    self.infrastructure_upgrade_levels
-                ),
-                'ResearchUpgradeLevels': self.research_upgrade_levels,
-                'InfraStructureUpgradeState': (
-                    self.infrastructure_upgrade_state
-                ),
-                'ResearchUpgradeState': self.research_upgrade_state,
-            }
-        )
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'TransactionTime': self.transaction_time.isoformat(),
+            'TurnNo': self.turn_no,
+            'CostPerServer': self.cost_per_server,
+            'ProfitConstant': self.profit_constant,
+            'ProfitAccumulated': self.profit_accumulated,
+            'ProfitEarned': self.profit_earned,
+            'ServerTiers': self.server_tiers.to_dict(),
+            'InfraStructureUpgradeLevels': [
+                x.to_dict()
+                for x in
+                self.infrastructure_upgrade_levels
+            ],
+            'ResearchUpgradeLevels': [
+                x.to_dict() for x in
+                self.research_upgrade_levels
+            ],
+            'InfraStructureUpgradeState': (
+                self.infrastructure_upgrade_state
+            ),
+            'ResearchUpgradeState': self.research_upgrade_state,
+        }
 
     @staticmethod
     def json_factory(input_json):
@@ -71,7 +79,7 @@ class GameServerFarmState(object):
 
         result.transaction_time = datetime.datetime.strptime(
             input_json['TransactionTime'],
-            '%Y-%m-%dT%H:%M:%S'
+            DATETIME_FORMAT
         )
         result.turn_no = input_json['TurnNo']
         result.cost_per_server = input_json['CostPerServer']

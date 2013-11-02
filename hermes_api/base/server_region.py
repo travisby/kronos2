@@ -24,15 +24,16 @@ class ServerRegion(object):
         self.node_change_state = node_change_state
 
     def __repr__(self):
-        return json.dumps(
-            {
-                'NodeCount': self.node_count,
-                'NoOfTransactionsInput': self.no_of_transactions_input,
-                'NoOfTransactionsExecuted': self.no_of_transactions_executed,
-                'NoOfTransactionsSucceeded': self.no_of_transactions_succeeded,
-                'NodeChangeState': self.node_change_state
-            }
-        )
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'NodeCount': self.node_count,
+            'NoOfTransactionsInput': self.no_of_transactions_input,
+            'NoOfTransactionsExecuted': self.no_of_transactions_executed,
+            'NoOfTransactionsSucceeded': self.no_of_transactions_succeeded,
+            'NodeChangeState': self.node_change_state
+        }
 
     @staticmethod
     def json_factory(input_json):

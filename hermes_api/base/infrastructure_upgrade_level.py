@@ -20,14 +20,15 @@ class InfrastructureUpgradeLevel(object):
         self.transaction_benefit = transaction_benefit
 
     def __repr__(self):
-        return json.dumps(
-            {
-                'Name': self.name,
-                'UpgradeCost': self.upgrade_cost,
-                'No.OfTurnsRequired': self.nu_of_turns_required,
-                'TransactionBenefit': self.transaction_benefit
-            }
-        )
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'Name': self.name,
+            'UpgradeCost': self.upgrade_cost,
+            'NoOfTurnsRequired': self.no_of_turns_required,
+            'TransactionBenefit': self.transaction_benefit
+        }
 
     @staticmethod
     def json_factory(input_json):

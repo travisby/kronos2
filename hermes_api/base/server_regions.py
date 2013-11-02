@@ -15,13 +15,14 @@ class ServerRegions(object):
         self.ap = ap
 
     def __repr__(self):
-        return json.dumps(
-            {
-                'EU': self.eu,
-                'NA': self.na,
-                'AP': self.ap
-            }
-        )
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'EU': self.eu,
+            'NA': self.na,
+            'AP': self.ap
+        }
 
     @staticmethod
     def json_factory(input_json):

@@ -8,13 +8,14 @@ class ServerTiers(object):
     db = ServerTier()
 
     def __repr__(self):
-        return json.dumps(
-            {
-                'WEB': self.web,
-                'JAVA': self.java,
-                'DB': self.db
-            }
-        )
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'WEB': self.web.to_dict(),
+            'JAVA': self.java.to_dict(),
+            'DB': self.db.to_dict()
+        }
 
     @staticmethod
     def json_factory(input_json):

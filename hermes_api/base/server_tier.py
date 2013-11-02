@@ -6,7 +6,7 @@ from server_regions import ServerRegions
 class ServerTier(object):
     server_shutdown_turn_time = 0
     server_performance = None
-    server_regions = []
+    server_regions = None
     server_start_turn_time = 0
 
     def __init__(
@@ -23,14 +23,15 @@ class ServerTier(object):
         self.server_start_turn_time = server_start_turn_time
 
     def __repr__(self):
-        return json.dumps(
-            {
-                'ServerShutdownTurnTime': self.server_shutdown_turn_time,
-                'ServerPerformance': self.server_performance,
-                'ServerRegions': self.server_regions,
-                'ServerStartTurnTime': self.server_start_turn_time
-            }
-        )
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'ServerShutdownTurnTime': self.server_shutdown_turn_time,
+            'ServerPerformance': self.server_performance.to_dict(),
+            'ServerRegions': self.server_regions.to_dict(),
+            'ServerStartTurnTime': self.server_start_turn_time
+        }
 
     @staticmethod
     def json_factory(input_json):

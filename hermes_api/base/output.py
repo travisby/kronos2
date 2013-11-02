@@ -14,13 +14,18 @@ class Output(object):
         self.server_state = server_state
 
     def __repr__(self):
-        return json.dumps(
-            {
-                'RequestStatus': self.request_status,
-                'Error': self.error,
-                'ServerState': self.server_state
-            }
-        )
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        result = {}
+        result['RequestStatus'] = self.request_status
+        result['Error'] = self.error
+        result['ServerState'] = None
+
+        if self.server_state:
+            result['ServerState'] = self.server_state.to_dict()
+
+        return result
 
     @staticmethod
     def json_factory(input_json):
@@ -29,8 +34,13 @@ class Output(object):
         result.error = GameError.json_factory(
             input_json['Error']
         )
-        result.server_state = GameServerFarmState.json_factory(
-            input_json['ServerState']
-        )
+
+        # this is blank on change
+        if input_json['ServerState']:
+            result.server_state = GameServerFarmState.json_factory(
+                input_json['ServerState']
+            )
+        else:
+            result.server_state = None
 
         return result
