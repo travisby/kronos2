@@ -10,4 +10,4 @@ except KeyError:
     raise APITokenDoesNotExist()
 
 
-HERMES_API_URL = 'hermes.wha.la/api/hermes'
+HERMES_API_URL = 'http://hermes.wha.la/api/hermes'
