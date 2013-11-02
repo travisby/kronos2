@@ -1,6 +1,7 @@
 import json
 
-class Request:
+
+class Request(object):
     command = ''
     token = ''
     change_request = None
@@ -10,9 +11,11 @@ class Request:
         self.token = token
         self.change_request = change_request
 
-    def __repr__():
+    def __repr__(self):
         return json.dumps(
-            'Command': self.command,
-            'Token': self.token,
-            'ChangeRequest': self.change_request
+            {
+                'Command': self.command,
+                'Token': self.token,
+                'ChangeRequest': self.change_request
+            }
         )
