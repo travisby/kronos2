@@ -11,3 +11,7 @@ except KeyError:
 
 
 HERMES_API_URL = 'http://hermes.wha.la/api/hermes'
+
+INIT = 'INIT'
+PLAY = 'PLAY'
+CHANGE = 'CHNG'
