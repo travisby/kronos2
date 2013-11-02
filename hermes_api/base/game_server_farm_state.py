@@ -2,6 +2,7 @@ import json
 import datetime
 from infrastructure_upgrade_level import InfrastructureUpgradeLevel
 from research_upgrade_level import ResearchUpgradeLevel
+from server_tiers import ServerTiers
 
 
 class GameServerFarmState(object):
@@ -76,8 +77,9 @@ class GameServerFarmState(object):
         result.profit_accumulated = input_json['ProfitAccumulated']
         result.profit_earned = input_json['ProfitEarned']
 
-        # TODO figure out what this translates to
-        result.server_tiers = input_json['ServerTiers']
+        result.server_tiers = ServerTiers.json_factory(
+            input_json['ServerTiers']
+        )
         result.infrastructure_upgrade_levels = (
             InfrastructureUpgradeLevel.json_factory(
                 input_json['InfraStructureUpgradeLevels']
