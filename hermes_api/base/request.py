@@ -1,4 +1,4 @@
-import json
+import simplejson as json
 
 
 class Request(object):
@@ -12,10 +12,11 @@ class Request(object):
         self.change_request = change_request
 
     def __repr__(self):
-        return json.dumps(
-            {
-                'Command': self.command,
-                'Token': self.token,
-                'ChangeRequest': self.change_request
-            }
-        )
+        representation = {
+            'Command': self.command,
+            'Token': self.token,
+        }
+        if self.change_request:
+            representation['ChangeRequest'] = self.change_request.to_dict()
+
+        return json.dumps(representation)
