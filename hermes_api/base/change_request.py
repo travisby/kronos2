@@ -2,13 +2,13 @@ import json
 
 
 class ChangeRequest(object):
-    servers = []
+    servers = {}
     upgrade_infastructure = False
     upgrade_to_research = ''
 
     def __init__(
         self,
-        servers=[],
+        servers={},
         upgrade_infastructure=False,
         upgrade_to_research=''
     ):

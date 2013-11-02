@@ -1,3 +1,5 @@
+from game_error import GameError
+from game_server_farm_state import GameServerFarmState
 import json
 
 
@@ -19,3 +21,15 @@ class Output(object):
                 'ServerState': self.server_state
             }
         )
+
+    def json_factory(input_json):
+        result = Output()
+        result.request_status = input_json['RequestStatus']
+        result.error_message = GameError.json_factory(
+            input_json['ErrorMessage']
+        )
+        result.server_state = GameServerFarmState.json_factory(
+            input_json['ServerState']
+        )
+
+        return result

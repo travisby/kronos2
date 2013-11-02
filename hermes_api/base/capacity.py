@@ -28,3 +28,12 @@ class Capacity(object):
                 'IsAtOverLoad': self.is_at_overload
             }
         )
+
+    def json_factory(input_json):
+        result = Capacity()
+        result.upper_limit = input_json['UpperLimit']
+        result.lower_limit = input_json['LowerLimit']
+        result.success_percentage = input_json['SuccessPercentage']
+        result.is_at_overload = input_json['IsAtOverLoad']
+
+        return result

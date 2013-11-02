@@ -1,4 +1,5 @@
 import json
+from node_change_state import NodeChangeState
 
 
 class ServerRegion(object):
@@ -32,3 +33,24 @@ class ServerRegion(object):
                 'NodeChangeState': self.node_change_state
             }
         )
+
+    def json_factory(input_json):
+        result = ServerRegion()
+
+        result.node_count = input_json['NodeCount']
+        result.no_of_transactions_input = input_json['NoOfTransactionsInput']
+        result.no_of_transactions_executed = (
+            input_json['NoOfTransactionsExecuted']
+        )
+        result.no_of_transactions_succeeded = (
+            input_json['NoOfTransactionsSucceeded']
+        )
+        result.node_change_state = (
+            [
+                NodeChangeState(x)
+                for x in
+                input_json['NodeChangeState']
+            ]
+        )
+
+        return result

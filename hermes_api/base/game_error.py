@@ -16,3 +16,11 @@ class GameError(object):
                 'ErrorMessage': self.error_message
             }
         )
+
+    def json_factory(input_json):
+        result = GameError()
+
+        result.error_no = input_json['ErrorNo']
+        result.error_message = input_json['ErrorMessage']
+
+        return result

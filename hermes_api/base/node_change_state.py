@@ -16,3 +16,11 @@ class NodeChangeState(object):
                 'EffectiveAfterTurns': self.effective_after_turns
             }
         )
+
+    def json_factory(input_json):
+        result = NodeChangeState()
+
+        result.node_count = input_json['NodeCount']
+        result.effective_after_turns = input_json['EffectiveAfterTurns']
+
+        return result

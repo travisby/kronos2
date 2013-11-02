@@ -1,4 +1,7 @@
 import json
+import datetime
+from infrastructure_upgrade_level import InfrastructureUpgradeLevel
+from research_upgrade_level import ResearchUpgradeLevel
 
 
 class GameServerFarmState(object):
@@ -60,3 +63,35 @@ class GameServerFarmState(object):
                 'ResearchUpgradeState': self.research_upgrade_state,
             }
         )
+
+    def json_factory(input_json):
+        result = GameServerFarmState()
+
+        result.transaction_time = datetime.strptime(
+            input_json['TransactionTime']
+        )
+        result.turn_no = input_json['TurnNo']
+        result.cost_per_server = input_json['CostPerServer']
+        result.profit_constant = input_json['ProfitConstant']
+        result.profit_accumulated = input_json['ProfitAccumulated']
+        result.profit_earned = input_json['ProfitEarned']
+
+        # TODO figure out what this translates to
+        result.server_tiers = input_json['ServerTiers']
+        result.infrastructure_upgrade_levels = (
+            InfrastructureUpgradeLevel.json_factory(
+                input_json['InfraStructureUpgradeLevels']
+            )
+        )
+        result.research_upgrade_levels = ResearchUpgradeLevel.json_factory(
+            input_json['ResearchUpgradeLevel']
+        )
+
+        # TODO figure out what this translates to
+        result.infrastructure_upgrade_state = (
+            input_json['InfraStructureUpgradeState'])
+
+        # TODO figure out what this translates to
+        result.research_upgrade_state = input_json['ResearchUpgradeState']
+
+        return result

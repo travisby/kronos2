@@ -19,3 +19,12 @@ class FailOver(object):
                 'SuccessPercentage': self.success_percentage
             }
         )
+
+    def json_factory(input_json):
+        result = FailOver()
+
+        result.region_to = input_json['RegionTo']
+        result.region_from = input_json['RegionFrom']
+        result.success_percentage = input_json['SuccessPercentage']
+
+        return result
