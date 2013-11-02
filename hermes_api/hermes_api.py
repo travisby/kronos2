@@ -22,6 +22,10 @@ class HermesApi(object):
         ).json()
 
         if result['Error']:
+            print '----------- What we sent! --------'
+            print repr(request)
+            print '----------- What we got! --------'
+            print result
             raise Exception(result['Error']['ErrorMessage'])
 
         return result
