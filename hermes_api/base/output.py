@@ -32,43 +32,76 @@ class Output(object):
     def get_date(self):
         return self.server_state.transaction_time
 
+    def get_servers_for_load(self, load):
+        # prevent / 0
+        if load == 0:
+            load = 1
+
+        loads = {}
+        loads['WEB'] = load / min([x.upper_limit for x in self.server_state.server_tiers.web.server_performance.capacity_levels])
+        loads['JAVA'] = load / min([x.upper_limit for x in self.server_state.server_tiers.java.server_performance.capacity_levels])
+        loads['DB'] = load / min([x.upper_limit for x in self.server_state.server_tiers.db.server_performance.capacity_levels])
+
+        return loads
+
+    def get_max_startup_time(self):
+        return max(
+            [
+                self.server_state.server_tiers.web.start_turn_time,
+                self.server_state.server_tiers.java.start_turn_time,
+                self.server_state.server_tiers.db.server_start_turn_time
+            ]
+        )
+
     def get_attempted_transactions(self):
         return {
-            tier.WEB.name: {
-                region.NORTHAMERICA.code: self.server_state.server_tiers.web.server_regions.na['NoOfTransactionsInput'],
-                region.EUROPE.code: self.server_state.server_tiers.web.server_regions.eu['NoOfTransactionsInput'],
-                region.ASIAPACIFIC.code: self.server_state.server_tiers.web.server_regions.ap['NoOfTransactionsInput'],
-            },
-            tier.JAVA.name: {
-                region.NORTHAMERICA.code: self.server_state.server_tiers.java.server_regions.na['NoOfTransactionsInput'],
-                region.EUROPE.code: self.server_state.server_tiers.java.server_regions.eu['NoOfTransactionsInput'],
-                region.ASIAPACIFIC.code: self.server_state.server_tiers.java.server_regions.ap['NoOfTransactionsInput'],
-            },
-            tierDB.name: {
-                region.NORTHAMERICA.code: self.server_state.server_tiers.db.server_regions.na['NoOfTransactionsInput'],
-                region.EUROPE.code: self.server_state.server_tiers.db.server_regions.eu['NoOfTransactionsInput'],
-                region.ASIAPACIFIC.code: self.server_state.server_tiers.db.server_regions.ap['NoOfTransactionsInput'],
-            }
+            'na': max(
+                [
+                    self.server_state.server_tiers.web.server_regions.na['NoOfTransactionsInput'],
+                    self.server_state.server_tiers.java.server_regions.na['NoOfTransactionsInput'],
+                    self.server_state.server_tiers.db.server_regions.na['NoOfTransactionsInput'],
+                ]
+            ),
+            'eu': max(
+                [
+                    self.server_state.server_tiers.web.server_regions.eu['NoOfTransactionsInput'],
+                    self.server_state.server_tiers.java.server_regions.eu['NoOfTransactionsInput'],
+                    self.server_state.server_tiers.db.server_regions.eu['NoOfTransactionsInput'],
+                ]
+            ),
+            'ap': max(
+                [
+                    self.server_state.server_tiers.web.server_regions.ap['NoOfTransactionsInput'],
+                    self.server_state.server_tiers.java.server_regions.ap['NoOfTransactionsInput'],
+                    self.server_state.server_tiers.db.server_regions.ap['NoOfTransactionsInput'],
+                ]
+            )
         }
 
     def get_executed_transactions(self):
         #  f.server_state.server_tiers.web.server_regions.ap['NoOfTransactionsExecuted']
         return {
-            tier.WEB.name: {
-                region.NORTHAMERICA.code: self.server_state.server_tiers.web.server_regions.na['NoOfTransactionsExecuted'],
-                region.EUROPE.code: self.server_state.server_tiers.web.server_regions.eu['NoOfTransactionsExecuted'],
-                region.ASIAPACIFIC.code: self.server_state.server_tiers.web.server_regions.ap['NoOfTransactionsExecuted'],
-            },
-            tier.JAVA.name: {
-                region.NORTHAMERICA.code: self.server_state.server_tiers.java.server_regions.na['NoOfTransactionsExecuted'],
-                region.EUROPE.code: self.server_state.server_tiers.java.server_regions.eu['NoOfTransactionsExecuted'],
-                region.ASIAPACIFIC.code: self.server_state.server_tiers.java.server_regions.ap['NoOfTransactionsExecuted'],
-            },
-            tier.DB.name: {
-                region.NORTHAMERICA.code: self.server_state.server_tiers.db.server_regions.na['NoOfTransactionsExecuted'],
-                region.EUROPE.code: self.server_state.server_tiers.db.server_regions.eu['NoOfTransactionsExecuted'],
-                region.ASIAPACIFIC.code: self.server_state.server_tiers.db.server_regions.ap['NoOfTransactionsExecuted'],
-            }
+            'na': max(
+                [
+                    self.server_state.server_tiers.web.server_regions.na['NoOfTransactionsExecuted'],
+                    self.server_state.server_tiers.java.server_regions.na['NoOfTransactionsExecuted'],
+                    self.server_state.server_tiers.db.server_regions.na['NoOfTransactionsExecuted'],
+                ]
+            ),
+            'eu': max(
+                [
+                    self.server_state.server_tiers.web.server_regions.eu['NoOfTransactionsExecuted'],
+                    self.server_state.server_tiers.java.server_regions.eu['NoOfTransactionsExecuted'],
+                    self.server_state.server_tiers.db.server_regions.eu['NoOfTransactionsExecuted'],
+                ]
+            ),
+            'ap': max(
+                [
+                    self.server_state.server_tiers.web.server_regions.ap['NoOfTransactionsExecuted'],
+                    self.server_state.server_tiers.java.server_regions.ap['NoOfTransactionsExecuted'],
+                    self.server_state.server_tiers.db.server_regions.ap['NoOfTransactionsExecuted'],
+                ]
+            )
         }
 
     @staticmethod

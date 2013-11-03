@@ -3,6 +3,8 @@ import base.output
 import base.change_request
 import requests
 import utils
+import tier
+import region
 
 
 class HermesApi(object):
@@ -41,12 +43,29 @@ class HermesApi(object):
     def chng(self, change_request):
         return self._makeRequest(utils.CHANGE, change_request)
 
-    def change_servers(self, tier, region, num_servers):
+    def change_servers(self, my_tier, my_region, num_servers):
+        # handle strings
+        if not hasattr(my_tier, 'name'):
+            if my_tier == 'WEB':
+                my_tier = tier.WEB
+            elif my_tier == 'JAVA':
+                my_tier = tier.JAVA
+            elif my_tier == 'DB':
+                my_tier = tier.DB
+
+        if not hasattr(my_region, 'code'):
+            if my_region == 'eu':
+                my_region = region.EUROPE
+            elif my_region == 'na':
+                my_region = region.NORTHAMERICA
+            elif my_region == 'ap':
+                my_region = region.ASIAPACIFIC
+
         change = base.change_request.ChangeRequest()
         change.servers = {
-            tier.name: {
+            my_tier.name: {
                 "ServerRegions": {
-                    region.code: {
+                    my_region.code: {
                         'NodeCount': num_servers
                     }
                 }
